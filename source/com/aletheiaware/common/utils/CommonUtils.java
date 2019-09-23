@@ -102,6 +102,21 @@ public final class CommonUtils {
         return FORMATTER.format(new Date(nanos / 1000000));
     }
 
+    public static String moneyToString(String currency, double amount) {
+        String s = "?";
+        if (amount == 0) {
+            return "Free";
+        }
+        switch (currency) {
+            case "usd":
+                s = String.format("$%.2f", amount/100.0);
+        }
+        while (s.endsWith("0") || s.endsWith(".")) {
+            s = s.substring(0, s.length()-1);
+        }
+        return s;
+    }
+
     public static byte[] encodeBase64(byte[] data) {
         try {
             return java.util.Base64.getEncoder().encode(data);

@@ -51,4 +51,15 @@ public class CommonUtilsTest {
     public void testTimeToString() throws Exception {
         Assert.assertEquals("2019-08-12 17:36:05", CommonUtils.timeToString(1565656565656565656L));
     }
+
+    @Test
+    public void testMoneyToString() throws Exception {
+        Assert.assertEquals("Free", CommonUtils.moneyToString("usd", 0L));
+        Assert.assertEquals("$0.64", CommonUtils.moneyToString("usd", 64L));
+        Assert.assertEquals("$12.34", CommonUtils.moneyToString("usd", 1234L));
+        Assert.assertEquals("$567.89", CommonUtils.moneyToString("usd", 56789L));
+        Assert.assertEquals("$12345.67", CommonUtils.moneyToString("usd", 1234567L));
+        Assert.assertEquals("$89012345.67", CommonUtils.moneyToString("usd", 8901234567L));
+        Assert.assertEquals("$89012345678.9", CommonUtils.moneyToString("usd", 8901234567890L));
+    }
 }
