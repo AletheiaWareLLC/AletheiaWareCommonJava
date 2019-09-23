@@ -34,7 +34,10 @@ public final class CommonUtils {
 
     private CommonUtils() {}
 
-    public static String sizeToString(long size) {
+    public static String binarySizeToString(long size) {
+        if (size == 1) {
+            return "1byte";
+        }
         if (size <= 1024) {
             return String.format("%dbytes", size);
         }
@@ -42,23 +45,55 @@ public final class CommonUtils {
         double s = size;
         if (s >= 1024) {
             s /= 1024;
-            unit = "Kb";
+            unit = "KiB";
         }
         if (s >= 1024) {
             s /= 1024;
-            unit = "Mb";
+            unit = "MiB";
         }
         if (s >= 1024) {
             s /= 1024;
-            unit = "Gb";
+            unit = "GiB";
         }
         if (s >= 1024) {
             s /= 1024;
-            unit = "Tb";
+            unit = "TiB";
         }
         if (s >= 1024) {
             s /= 1024;
-            unit = "Pb";
+            unit = "PiB";
+        }
+        return String.format("%.2f%s", s, unit);
+    }
+
+    public static String decimalSizeToString(long size) {
+        if (size == 1) {
+            return "1byte";
+        }
+        if (size <= 1000) {
+            return String.format("%dbytes", size);
+        }
+        String unit = "";
+        double s = size;
+        if (s >= 1000) {
+            s /= 1000;
+            unit = "KB";
+        }
+        if (s >= 1000) {
+            s /= 1000;
+            unit = "MB";
+        }
+        if (s >= 1000) {
+            s /= 1000;
+            unit = "GB";
+        }
+        if (s >= 1000) {
+            s /= 1000;
+            unit = "TB";
+        }
+        if (s >= 1000) {
+            s /= 1000;
+            unit = "PB";
         }
         return String.format("%.2f%s", s, unit);
     }

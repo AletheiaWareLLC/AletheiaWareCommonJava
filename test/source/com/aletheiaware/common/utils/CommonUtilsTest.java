@@ -22,15 +22,29 @@ import org.junit.Test;
 public class CommonUtilsTest {
 
     @Test
-    public void testSizeToString() throws Exception {
-        Assert.assertEquals("0bytes", CommonUtils.sizeToString(0L));
-        Assert.assertEquals("64bytes", CommonUtils.sizeToString(64L));
-        Assert.assertEquals("1.21Kb", CommonUtils.sizeToString(1234L));
-        Assert.assertEquals("55.46Kb", CommonUtils.sizeToString(56789L));
-        Assert.assertEquals("1.18Mb", CommonUtils.sizeToString(1234567L));
-        Assert.assertEquals("8.29Gb", CommonUtils.sizeToString(8901234567L));
-        Assert.assertEquals("8.10Tb", CommonUtils.sizeToString(8901234567890L));
-        Assert.assertEquals("10.97Pb", CommonUtils.sizeToString(12345678901234567L));
+    public void testBinarySizeToString() throws Exception {
+        Assert.assertEquals("0bytes", CommonUtils.binarySizeToString(0L));
+        Assert.assertEquals("1byte", CommonUtils.binarySizeToString(1L));
+        Assert.assertEquals("64bytes", CommonUtils.binarySizeToString(64L));
+        Assert.assertEquals("1.21KiB", CommonUtils.binarySizeToString(1234L));
+        Assert.assertEquals("55.46KiB", CommonUtils.binarySizeToString(56789L));
+        Assert.assertEquals("1.18MiB", CommonUtils.binarySizeToString(1234567L));
+        Assert.assertEquals("8.29GiB", CommonUtils.binarySizeToString(8901234567L));
+        Assert.assertEquals("8.10TiB", CommonUtils.binarySizeToString(8901234567890L));
+        Assert.assertEquals("10.97PiB", CommonUtils.binarySizeToString(12345678901234567L));
+    }
+
+    @Test
+    public void testDecimalSizeToString() throws Exception {
+        Assert.assertEquals("0bytes", CommonUtils.decimalSizeToString(0L));
+        Assert.assertEquals("1byte", CommonUtils.decimalSizeToString(1L));
+        Assert.assertEquals("64bytes", CommonUtils.decimalSizeToString(64L));
+        Assert.assertEquals("1.23KB", CommonUtils.decimalSizeToString(1234L));
+        Assert.assertEquals("56.79KB", CommonUtils.decimalSizeToString(56789L));
+        Assert.assertEquals("1.23MB", CommonUtils.decimalSizeToString(1234567L));
+        Assert.assertEquals("8.90GB", CommonUtils.decimalSizeToString(8901234567L));
+        Assert.assertEquals("8.90TB", CommonUtils.decimalSizeToString(8901234567890L));
+        Assert.assertEquals("12.35PB", CommonUtils.decimalSizeToString(12345678901234567L));
     }
 
     @Test
