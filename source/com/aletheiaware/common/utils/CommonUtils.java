@@ -21,6 +21,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -213,6 +215,50 @@ public final class CommonUtils {
             out.write(data);
             out.flush();
         }
+    }
+
+    public static boolean recursiveCopy(File source, File target) {
+        if (source.exists()) {
+            if (source.isDirectory()) {
+                if (!target.exists() && !target.mkdirs()) {
+                    return false;
+                }
+                for (String file : source.list()) {
+                    recursiveCopy(new File(source, file), new File(target, file));
+                }
+            } else {
+                File parent = target.getParentFile();
+                if (parent != null && !parent.exists() && !parent.mkdirs()) {
+                    return false;
+                }
+                byte[] buffer = new byte[1024];
+                int length;
+                try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
+                    while ((length = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, length);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean recursiveDelete(File file) {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                for (File f : file.listFiles()) {
+                    if (!recursiveDelete(f)) {
+                        return false;
+                    }
+                }
+            } else {
+                return file.delete();
+            }
+        }
+        return true;
     }
 
     public static class Pair<A, B> {
