@@ -117,6 +117,13 @@ public final class CommonUtils {
         return s;
     }
 
+    public static String capitalize(String string) {
+        if (string == null || string.isEmpty()) {
+            return string;
+        }
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
     public static byte[] encodeBase64(byte[] data) {
         try {
             return java.util.Base64.getEncoder().encode(data);
